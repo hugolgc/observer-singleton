@@ -3,14 +3,14 @@ import { BookingService } from "./services/booking.service";
 import { InventoryService } from "./services/inventory.service";
 import { NotificationService } from "./services/notification.service";
 
-const bus = Bus.getInstance();
+const purchaseBus = new Bus();
 
-const bookingService = BookingService.getInstance(bus);
-const inventoryService = InventoryService.getInstance(bus, 8);
+const bookingService = BookingService.getInstance(purchaseBus);
+const inventoryService = InventoryService.getInstance(purchaseBus, 8);
 const notificationService = NotificationService.getInstance();
 
-bus.subscribe(notificationService);
-bus.subscribe(inventoryService);
-bus.subscribe(bookingService);
+purchaseBus.subscribe(notificationService);
+purchaseBus.subscribe(inventoryService);
+purchaseBus.subscribe(bookingService);
 
 bookingService.bookTickets(2);
